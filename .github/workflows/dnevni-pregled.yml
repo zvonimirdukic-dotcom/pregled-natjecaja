@@ -1,0 +1,95 @@
+name: Dnevni pregled nabava
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+      timezone: Europe/Zagreb
+
+  workflow_dispatch:
+    inputs:
+      send_email:
+        description: 'Poslati izvještaj e-mailom'
+        type: boolean
+        default: false
+
+  push:
+    branches: [main]
+    paths:
+      - 'monitor.py'
+      - 'sources.yml'
+      - 'requirements.txt'
+      - '.github/workflows/dnevni-pregled.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dnevni-pregled
+  cancel-in-progress: false
+
+jobs:
+  pregled:
+    if: github.event_name != 'schedule' || vars.DAILY_REPORTS_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Preuzimanje programa
+        uses: actions/checkout@v4
+
+      - name: Postavljanje Pythona
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Instalacija dodataka
+        run: pip install -r requirements.txt
+
+      - name: Instalacija preglednika za EOJN
+        run: python -m playwright install --with-deps chromium
+
+      - name: Provjera Python sintakse
+        run: python -m py_compile monitor.py
+
+      - name: Ucitavanje prethodno poslanih rezultata
+        uses: actions/cache/restore@v4
+        with:
+          path: state
+          key: pregled-state-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: pregled-state-
+
+      - name: Probni pregled EOJN-a i tri lokalna izvora
+        if: github.event_name == 'push'
+        run: python monitor.py --source-limit 3
+
+      - name: Pregled svih konfiguriranih izvora
+        if: github.event_name != 'push'
+        env:
+          SEND_EMAIL: ${{ github.event_name == 'schedule' || inputs.send_email }}
+          SMTP_USER: ${{ vars.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          REPORT_TO: ${{ vars.REPORT_TO }}
+        shell: bash
+        run: |
+          if [ "$SEND_EMAIL" = "true" ]; then
+            python monitor.py --send
+          else
+            python monitor.py
+          fi
+
+      - name: Spremanje izvjestaja
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: izvjestaj-${{ github.run_id }}-${{ github.run_attempt }}
+          path: reports/
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Pamcenje uspjesno poslanih rezultata
+        uses: actions/cache/save@v4
+        if: success() && (github.event_name == 'schedule' || inputs.send_email)
+        with:
+          path: state
+          key: pregled-state-${{ github.run_id }}-${{ github.run_attempt }}
