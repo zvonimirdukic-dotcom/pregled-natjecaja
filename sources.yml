@@ -1,0 +1,234 @@
+# Početni registar izvora; nije potvrđen kao iscrpan.
+# Dostupnost i potpunost pregleda provjeravaju se u izvještaju.
+
+sources:
+  - name: Brodsko-posavska županija jednostavna nabava
+    url: https://bpz.hr/postupci-jednostavne-nabave
+
+  - name: Opća bolnica Slavonski Brod
+    url: https://www.bolnicasb.hr/jednostavna-nabava/
+
+  - name: Grad Slavonski Brod
+    url: https://slavonski-brod.hr/
+
+  - name: Grad Nova Gradiška javna nabava
+    url: https://novagradiska.hr/dokumenti/javna-nabava/javna-nabava/
+
+  - name: Opća bolnica Nova Gradiška
+    url: https://www.bolnicang.hr/novosti/
+
+  - name: Grad Požega javna nabava
+    url: https://www.pozega.hr/javna-nabava
+
+  - name: Požeško-slavonska županija javna nabava
+    url: https://www.pszupanija.hr/javna-nabava
+
+  - name: Dom zdravlja Slavonski Brod
+    url: https://www.dzsb.hr/
+
+  - name: Zavod za javno zdravstvo BPŽ
+    url: https://zzjzbpz.hr/
+
+  - name: Zavod za hitnu medicinu BPŽ
+    url: https://zhm-sb.hr/
+
+  - name: Dom za starije Slavonski Brod
+    url: https://www.dom-sb.hr/
+
+  - name: Komunalac Slavonski Brod
+    url: https://www.komunalac-sb.hr/
+
+  - name: Vodovod Slavonski Brod
+    url: https://www.vodovod-sb.hr/
+
+  - name: Tekija Požega
+    url: https://tekija.hr/
+
+  - name: Komunalac Požega
+    url: https://www.komunalac-pozega.hr/
+
+  - name: Dječji vrtić Požega
+    url: https://www.djecjivrticpozega.hr/
+
+  - name: Gradska knjižnica Požega
+    url: https://www.gkpz.hr/
+
+  - name: Gradski muzej Požega
+    url: https://www.gmp.hr/
+
+  - name: Opća županijska bolnica Požega
+    url: https://www.pozeska-bolnica.hr/category/nabava-po-internom/
+
+  - name: Dom zdravlja Požeško-slavonske županije
+    url: https://dz-pozega.hr/jednostavna_nabava/
+
+  - name: Zavod za javno zdravstvo Požeško-slavonske županije
+    url: https://zjz-pozega.hr/javna-nabava
+
+  - name: Zavod za hitnu medicinu Požeško-slavonske županije
+    url: https://hitna-psz.hr/
+
+  - name: os-amreljkovic-bebrina.skole.hr
+    url: http://os-amreljkovic-bebrina.skole.hr/
+
+  - name: os-vcemin-donjiandrijevci.skole.hr
+    url: http://os-vcemin-donjiandrijevci.skole.hr/
+
+  - name: os-asenoe-gundinci.skole.hr
+    url: http://os-asenoe-gundinci.skole.hr/
+
+  - name: os-vklaic-garcin.skole.hr
+    url: http://os-vklaic-garcin.skole.hr/
+
+  - name: os-sibinjskihzrtava-sibinj.skole.hr
+    url: http://os-sibinjskihzrtava-sibinj.skole.hr/
+
+  - name: os-jkozarac-slavonski-samac.skole.hr
+    url: http://os-jkozarac-slavonski-samac.skole.hr/
+
+  - name: os-sikirevci.skole.hr
+    url: http://os-sikirevci.skole.hr/
+
+  - name: os-silijasevic-oriovac.skole.hr
+    url: http://os-silijasevic-oriovac.skole.hr/
+
+  - name: os-ljgaj-luzani.skole.hr
+    url: http://os-ljgaj-luzani.skole.hr/
+
+  - name: os-imestrovic-vrpolje.skole.hr
+    url: http://os-imestrovic-vrpolje.skole.hr/
+
+  - name: os-ifilipovic-velikakopanica.skole.hr
+    url: http://os-ifilipovic-velikakopanica.skole.hr/
+
+  - name: os-sradic-oprisavci.skole.hr
+    url: http://os-sradic-oprisavci.skole.hr/
+
+  - name: os-ljgaja-ng.skole.hr
+    url: http://os-ljgaja-ng.skole.hr/
+
+  - name: os-mlovrak-ng.skole.hr
+    url: http://os-mlovrak-ng.skole.hr/
+
+  - name: os-mgubec-cernik.skole.hr
+    url: http://os-mgubec-cernik.skole.hr/
+
+  - name: os-mareljkovic-davor.skole.hr
+    url: http://os-mareljkovic-davor.skole.hr/
+
+  - name: os-dragalic.skole.hr
+    url: http://os-dragalic.skole.hr/
+
+  - name: os-amihanovic-batrina.skole.hr
+    url: http://os-amihanovic-batrina.skole.hr/
+
+  - name: os-okucani.skole.hr
+    url: http://os-okucani.skole.hr/
+
+  - name: os-astarcevic-resetari.skole.hr
+    url: http://os-astarcevic-resetari.skole.hr/
+
+  - name: os-vnazor-adzamovci.skole.hr
+    url: http://os-vnazor-adzamovci.skole.hr/
+
+  - name: os-igkovacic-staropetrovoselo.skole.hr
+    url: http://os-igkovacic-staropetrovoselo.skole.hr/
+
+  - name: os-markovac-vrbova.skole.hr
+    url: http://os-markovac-vrbova.skole.hr/
+
+  - name: gimnazija-mmesic-sb.skole.hr
+    url: http://gimnazija-mmesic-sb.skole.hr/
+
+  - name: ss-mareljkovica-sb.skole.hr
+    url: http://ss-mareljkovica-sb.skole.hr/
+
+  - name: ss-obrtnicka-sb.skole.hr
+    url: http://ss-obrtnicka-sb.skole.hr/
+
+  - name: ss-industrijsko-obrtnicka-sb.skole.hr
+    url: http://ss-industrijsko-obrtnicka-sb.skole.hr/
+
+  - name: tssb.hr
+    url: https://tssb.hr/
+
+  - name: ss-ekonomsko-birotehnicka-sb.skole.hr
+    url: http://ss-ekonomsko-birotehnicka-sb.skole.hr/
+
+  - name: ss-medicinska-sb.skole.hr
+    url: http://ss-medicinska-sb.skole.hr/
+
+  - name: gimnazija-framarijanalanosovica.hr
+    url: https://gimnazija-framarijanalanosovica.hr/
+
+  - name: gsslavonskibrod.com
+    url: https://gsslavonskibrod.com/
+
+  - name: ss-industrijsko-obrtnicka-ng.skole.hr
+    url: http://ss-industrijsko-obrtnicka-ng.skole.hr/
+
+  - name: ss-elektrotehnickaiekonomska-ngradiska.skole.hr
+    url: http://ss-elektrotehnickaiekonomska-ngradiska.skole.hr/
+
+  - name: gimnazija-nova-gradiska.skole.hr
+    url: http://gimnazija-nova-gradiska.skole.hr/
+
+  - name: ctr.hr
+    url: https://ctr.hr/
+
+  - name: unisb.hr
+    url: https://www.unisb.hr/
+
+  - name: muzejbp.hr
+    url: https://muzejbp.hr/
+
+  - name: sagulje.hr
+    url: https://sagulje.hr/
+
+  - name: biotech.hr
+    url: http://www.biotech.hr/
+
+  - name: natura-slavonica.hr
+    url: https://natura-slavonica.hr/
+
+  - name: bpzzpu.hr
+    url: http://www.bpzzpu.hr/
+
+  - name: ljekarna-sb.hr
+    url: http://www.ljekarna-sb.hr/
+
+  - name: sgimv.hr
+    url: https://www.sgimv.hr/
+
+  - name: hipsb.hr
+    url: http://hipsb.hr/
+
+  - name: Aureabus
+    url: https://www.aureabus.hr/
+
+  - name: Pleternica
+    url: https://www.pleternica.hr
+
+  - name: Pakrac
+    url: https://www.pakrac.hr
+
+  - name: Lipik
+    url: https://www.lipik.hr
+
+  - name: Kutjevo
+    url: https://www.kutjevo.hr
+
+  - name: Velika
+    url: http://www.opcina-velika.hr/
+
+  - name: Jakšić
+    url: https://www.jaksic.hr/
+
+  - name: Brestovac
+    url: https://www.brestovac.hr/
+
+  - name: Kaptol
+    url: https://www.opcina-kaptol.com/
+
+  - name: Čaglin
+    url: http://opcina-caglin.hr/
