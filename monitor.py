@@ -52,19 +52,65 @@ DATE_RE = re.compile(r"\b(\d{1,2})\s*[./-]\s*(\d{1,2})\s*[./-]\s*(20\d{2})\b")
 
 
 def parse_date(s):
-    m = DATE_RE.search(s or "")
+    s = norm(s or "")
+    months = {
+        "sijecnja": 1, "veljace": 2, "ozujka": 3, "travnja": 4,
+        "svibnja": 5, "lipnja": 6, "srpnja": 7, "kolovoza": 8,
+        "rujna": 9, "listopada": 10, "studenoga": 11,
+        "studenog": 11, "prosinca": 12,
+    }
+    m = DATE_RE.search(s)
     if m:
-        try:
-            return date(int(m[3]), int(m[2]), int(m[1])).isoformat()
-        except ValueError:
-            return ""
-    m = re.search(r"\b20\d\d-\d\d-\d\d(?=T|\b)", s or "")
-    if m:
-        try:
-            return date.fromisoformat(m[0]).isoformat()
-        except ValueError:
-            pass
-    return ""
+        parts = (int(m[3]), int(m[2]), int(m[1]))
+    else:
+        m = re.search(
+            r"\b(20\d{2})-(\d{2})-(\d{2})(?=t|\b)", s
+        )
+        if m:
+            parts = tuple(map(int, m.groups()))
+        else:
+            m = re.search(
+                r"\b(\d{1,2})\.?\s+(" + "|".join(months)
+                + r")\s+(20\d{2})\b", s
+            )
+            if not m:
+                return ""
+            parts = (int(m[3]), months[m[2]], int(m[1]))
+    try:
+        return date(*parts).isoformat()
+    except ValueError:
+        return ""
+
+
+def publication_date(soup, text):
+    if soup is not None:
+        for node in soup.select(
+            'meta[property="article:published_time"], '
+            'meta[itemprop="datePublished"]'
+        ):
+            value = parse_date(node.get("content", ""))
+            if value:
+                return value
+
+        scope = soup.find("article") or soup.find("main") or soup
+        for node in scope.select(
+            '[itemprop="datePublished"], time.published, .published time'
+        ):
+            value = parse_date(
+                node.get("datetime") or node.get("content")
+                or node.get_text(" ", strip=True)
+            )
+            if value:
+                return value
+
+    match = re.search(
+        r"(?:objavljeno|datum objave|dodano datuma)\s*:?\s*"
+        r"(\d{1,2}\s*[./-]\s*\d{1,2}\s*[./-]\s*20\d{2}"
+        r"|20\d{2}-\d{2}-\d{2}"
+        r"|\d{1,2}\.?\s+[a-z]+\s+20\d{2})",
+        norm(text),
+    )
+    return parse_date(match[1]) if match else ""
 
 
 def relevant(s):
@@ -397,15 +443,7 @@ def scan_site(source, today, max_pages=60):
                         'time[datetime], meta[property="article:published_time"]'
                     )
                     if dated:
-                        date_value = parse_date(
-                            dated.get("datetime") or dated.get("content") or ""
-                        )
-                match = re.search(
-                    r"(?:objavljeno|datum objave|dodano datuma)\s*:?\s*"
-                    r"(\d{1,2}[.\-/]\s*\d{1,2}[.\-/]\s*20\d{2})",
-                    norm(text),
-                )
-                date_value = date_value or (parse_date(match[1]) if match else "")
+                     date_value = publication_date(soup, text)
 
                 if (
                     (relevant(title) or (soup is None and relevant(text)))
