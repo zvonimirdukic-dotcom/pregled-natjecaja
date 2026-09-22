@@ -292,36 +292,66 @@ def fetch_document(session, url):
 
 def candidate_links(soup, base, procurement_page):
     found = {}
+
+    base_tag = soup.find("base", href=True)
+    if base_tag:
+        base = urljoin(base, html.unescape(base_tag["href"]))
+
     for a in soup.find_all("a", href=True):
-        raw = a["href"]
-        if raw.startswith(("#", "javascript:", "mailto:", "tel:")):
+        raw = html.unescape(a["href"]).strip()
+        if raw.lower().startswith(("#", "javascript:", "mailto:", "tel:")):
             continue
+
         url = urldefrag(urljoin(base, raw))[0]
         if urlparse(url).scheme not in ("https", "http"):
             continue
 
         title = a.get_text(" ", strip=True) or a.get("title", "")
-        combined = norm(title + " " + urlparse(url).path)
+        slug = unquote(
+            urlparse(url).path.rstrip("/").rsplit("/", 1)[-1]
+        )
+        combined = re.sub(r"[-_]+", " ", norm(title + " " + slug))
+
         if EXCLUDE.search(combined) or re.search(
-            r"pravilnik|sprjecavanje-sukoba|registar-ugovor", combined
+            r"pravilnik|sprjecavanje sukoba|registar ugovor|plan nabav|"
+            r"radn(?:og|i|o) odnos|radn(?:og|o|a) mjest|prijam u sluzbu|"
+            r"prijem u radni|zasnivanje radnog|sklapanje radnog",
+            combined,
+        ):
+            continue
+
+        if re.search(
+            r"\.(?:jpe?g|png|gif|svg|webp|mp4|mp3|css|js)$",
+            urlparse(url).path,
+            re.I,
         ):
             continue
 
         parent = a.find_parent(["tr", "article", "li", "p"])
-        context = parent.get_text(" ", strip=True)[:1500] if parent else title
-        file = bool(re.search(r"\.(pdf|docx?|xlsx?)(?:$|[?])", url, re.I))
+        context = (
+            parent.get_text(" ", strip=True)[:1500]
+            if parent else title
+        )
+        file = bool(
+            re.search(r"\.(pdf|docx?|xlsx?)(?:$|[?])", url, re.I)
+        )
         pagination = bool(
             re.search(r"(/page/\d|[?&](page|start|paged)=)", url)
             or norm(title) in (
-                "sljedeca", "sljedeca stranica", "starije objave", "next"
+                "sljedeca", "sljedeca stranica",
+                "starije objave", "next",
             )
         )
+
         if (
             PROC.search(combined)
             or relevant(title)
             or (procurement_page and (file or pagination))
         ):
-            found[url] = dict(title=title, context=context, file=file)
+            found[url] = dict(
+                title=title, context=context, file=file
+            )
+
     return found
 
 
